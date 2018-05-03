@@ -1,0 +1,35 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.0.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/task
+   		http://www.springframework.org/schema/task/spring-task-4.0.xsd
+		http://code.alibabatech.com/schema/dubbo        
+		http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+		
+		<!-- Dubbo消费方 -->
+	<!-- 1：名称  计算机 区别 唯一 -->
+	<dubbo:application name="dubbo-controller" owner="dubbobbo" organization="dubbox" />
+	<!--<dubbo:registry address="N/A" check="false"/> -->	
+	
+	<!-- 使用multicast广播注册中心暴露发现服务地址 向zookpeer订阅provider的地址，由zookpeer定时推送 -->
+	<dubbo:registry address="zookeeper://127.0.0.1:2181" />
+	<!-- 使用dubbo协议定义好的api接口 -->
+	<dubbo:reference interface="com.wey.core.service.BookService" id="bookService" />
+	<!-- url="dubbo://127.0.0.1:20880"  -->
+	<!-- 全局设置 -->
+	<dubbo:consumer timeout="10000" check="false"/>
+</beans>
